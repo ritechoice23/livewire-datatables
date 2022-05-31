@@ -19,10 +19,11 @@ use Mediconesystems\LivewireDatatables\Exports\DatatableExport;
 use Mediconesystems\LivewireDatatables\Traits\WithCallbacks;
 use Mediconesystems\LivewireDatatables\Traits\WithPresetDateFilters;
 use Mediconesystems\LivewireDatatables\Traits\WithPresetTimeFilters;
+use WireUi\Traits\Actions;
 
 class LivewireDatatable extends Component
 {
-    use WithPagination, WithCallbacks, WithPresetDateFilters, WithPresetTimeFilters;
+    use WithPagination, WithCallbacks, WithPresetDateFilters, WithPresetTimeFilters, Actions;
 
     const SEPARATOR = '|**lwdt**|';
     public $model;
@@ -326,6 +327,9 @@ class LivewireDatatable extends Component
     public function delete($id)
     {
         $this->model::destroy($id);
+         $this->notification()->success(
+            $title = 'Record Deleted Succefully.'
+        );
     }
 
     public function getProcessedColumnsProperty()
